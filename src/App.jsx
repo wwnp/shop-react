@@ -1,11 +1,17 @@
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "./components/Layout";
+import { Single } from './containers/Single';
+// import { Home } from './containers/Home';
+import { Shop } from "./containers/Shop";
+import { AccId } from "./containers/AccId";
 export function App() {
   return (
-    <div className="wrapper">
-      <Header></Header>
-      <main></main>
-      <Footer></Footer>
-    </div>
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route index element={<Shop />}></Route>
+        <Route path='/shop/:slag' element={<Single />}></Route>
+        <Route path='/accid' element={<AccId />}></Route>
+      </Route>
+    </Routes>
   );
 }
