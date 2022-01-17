@@ -3,7 +3,6 @@ import { Search } from '../components/Search'
 export const AccId = props => {
   const [accId, setAccId] = useState(null)
   const [loading, setLoading] = useState(false)
-  console.log(accId)
   return (
     <main >
       <Search setAccId={setAccId} setLoading={setLoading}></Search>
