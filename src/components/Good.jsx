@@ -1,5 +1,4 @@
 import React from 'react'
-console.log('asd'.__proto__)
 export const Good = props => {
   const {
     displayName,
@@ -9,7 +8,8 @@ export const Good = props => {
     finalPrice,
     offerId,
     mainId,
-    img_url
+    img_url,
+    addToCart
   } = props
   // console.log(offerId)
   // console.log(offerId.slice(offerId.indexOf('/')+1))
@@ -29,17 +29,20 @@ export const Good = props => {
         <span className="card-title">{displayName}</span>
         <p>{buyAllowed}</p>
         <p>{displayType}</p>
+
+
+      </div>
+      <div className="card-action">
+        <button className='btn' data-id={mainId} onClick={(e) => props.addToCart(e) }>Купить</button>
         {finalPrice === regularPrice
           ? <span className='badge-custom green'>{regularPrice} p</span>
           :
-          <>
-            <span className='badge-custom green'>{finalPrice} p</span>
+          <div style={{display:'flex'}}>
             <span className='badge-custom orange' style={{ textDecoration: 'line-through' }}>{regularPrice} p</span>
-          </>
+            <span className='badge-custom green'>{finalPrice} p</span>
+            
+          </div>
         }
-      </div>
-      <div className="card-action">
-        <a href={"/shop/" + mainId}>Подробнее</a>
       </div>
     </div>
   )

@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Single } from './containers/Single';
-// import { Home } from './containers/Home';
 import { Shop } from "./containers/Shop";
 import { AccId } from "./containers/AccId";
 export function App() {
