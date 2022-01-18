@@ -6,13 +6,11 @@ export const Good = props => {
     buyAllowed,
     regularPrice,
     finalPrice,
-    offerId,
+    // offerId,
     mainId,
     img_url,
     addToCart
   } = props
-  // console.log(offerId)
-  // console.log(offerId.slice(offerId.indexOf('/')+1))
   return (
     <div className="card" >
       <div className="card-image">
@@ -29,18 +27,15 @@ export const Good = props => {
         <span className="card-title">{displayName}</span>
         <p>{buyAllowed}</p>
         <p>{displayType}</p>
-
-
       </div>
       <div className="card-action">
-        <button className='btn' data-id={mainId} onClick={(e) => props.addToCart(e) }>Купить</button>
+        <button className='btn' data-id={mainId} onClick={(e) => addToCart({displayName,mainId,finalPrice})}>Купить</button>
         {finalPrice === regularPrice
           ? <span className='badge-custom green'>{regularPrice} p</span>
           :
-          <div style={{display:'flex'}}>
+          <div style={{ display: 'flex' }}>
             <span className='badge-custom orange' style={{ textDecoration: 'line-through' }}>{regularPrice} p</span>
             <span className='badge-custom green'>{finalPrice} p</span>
-            
           </div>
         }
       </div>

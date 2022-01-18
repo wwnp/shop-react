@@ -13,7 +13,7 @@ export const List = props => {
           finalPrice={good.price.finalPrice}
           offerId={good.offerId}
           mainId={good.mainId}
-          img_url={good.displayAssets[0].url}
+          img_url={good.displayAssets[0].full_background}
           addToCart={props.addToCart}
         >
         </Good>
