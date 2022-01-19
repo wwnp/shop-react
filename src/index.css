@@ -124,3 +124,33 @@ span .badge {
 }
 
 .cart-quantity {}
+
+.hover-custom {
+  transition: background .1s;
+}
+
+.hover-custom:hover {
+  background-color: #d5fcf8 !important;
+}
+
+.basket-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.basket-modal>div {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.hover-plus-minus:hover {
+  background-color: #ccc;
+}

@@ -14,7 +14,6 @@ export const useSingle = props => {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json)
         setSingle(json.item)
         setLoading(false)
       })
