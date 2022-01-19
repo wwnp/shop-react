@@ -23,23 +23,33 @@ export const Shop = props => {
         }, 800)
       })
   }, [])
-
-  const addToCart = (e) => {
-    if (!addedGoods.includes(e.target.dataset.id)) {
-      const newArr = [...addedGoods]
-      newArr.push(e.target.dataset.id)
-      setAddedGoods(newArr)
-      setQuantity(quantity + 1)
+  const addToCart = (item) => {
+    const itemIndex = addedGoods.findIndex(good => good.mainId === item.mainId)
+    if (itemIndex < 0) {
+      const newItem = {
+        ...item,
+        quantity: 1
+      }
+      setAddedGoods([...addedGoods, newItem])
+    } else {
+      console.log(456)
+      const newAddedGoods = addedGoods.map((good, index) => {
+        if (index === itemIndex) {
+          return {
+            ...good,
+            quantity: good.quantity + 1
+          }
+        } else {
+          return good
+        }
+      })
+      setAddedGoods(newAddedGoods)
     }
   }
-  // const {
-  //   goods,
-  //   loading
-  // } = useShop()
   return (
     <main className='container content' >
-      <h1>Shop</h1>
-      <Cart quantity={quantity}></Cart>
+      <h1 className='align center'>Shop</h1>
+      <Cart addedGoods={addedGoods.length}></Cart>
       {goods.length === 0
         ? <h1>Let's search</h1>
         :
