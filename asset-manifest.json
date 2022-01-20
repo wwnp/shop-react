@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/wwnp/shop-react/static/css/main.b84ad0a0.css",
+    "main.js": "/wwnp/shop-react/static/js/main.54088fdc.js",
+    "index.html": "/wwnp/shop-react/index.html",
+    "main.b84ad0a0.css.map": "/wwnp/shop-react/static/css/main.b84ad0a0.css.map",
+    "main.54088fdc.js.map": "/wwnp/shop-react/static/js/main.54088fdc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b84ad0a0.css",
+    "static/js/main.54088fdc.js"
+  ]
+}
