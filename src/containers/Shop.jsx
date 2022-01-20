@@ -7,18 +7,21 @@ import { API_KEY, API_URL } from '../config';
 import { Cart } from './../components/Cart';
 import { BasketList } from '../components/BasketList';
 import M from "materialize-css/dist/js/materialize.min.js";
+import { Alert } from './../components/Alert';
 
 function addedGoodFromLS() {
   const addedGoods = localStorage.getItem('cart')
   return addedGoods ? JSON.parse(addedGoods) : []
 }
+const MAX_STACK = 9
 export const Shop = props => {
   const [goods, setGoods] = useState([])
   const [loading, setLoading] = useState(true)
   const [addedGoods, setAddedGoods] = useState(addedGoodFromLS())
   // const [addedGoods, setAddedGoods] = useState([])
   const [isBasketShowed, setIsBasketShowed] = useState(false)
-  const modalRef = useRef(null);
+  // const modalRef = useRef(null);
+  const [alertName, setAlertName] = useState('');
 
   useEffect(() => {
     fetch(API_URL, {
@@ -28,7 +31,6 @@ export const Shop = props => {
     })
       .then((response) => response.json())
       .then((json) => {
-        // console.log(json)
         setGoods(json.shop)
         setTimeout(() => {
           setLoading(false)
@@ -36,7 +38,12 @@ export const Shop = props => {
       })
   }, [])
 
+  const closeAlert = () => {
+    setAlertName('')
+  }
+
   const addToCart = (item) => {
+    console.log(item)
     const itemIndex = addedGoods.findIndex(good => good.mainId === item.mainId)
     if (itemIndex < 0) {
       const newItem = {
@@ -44,12 +51,14 @@ export const Shop = props => {
         quantity: 1
       }
       setAddedGoods([...addedGoods, newItem])
+      setAlertName(item.displayName)
     } else {
       const newAddedGoods = addedGoods.map((good, index) => {
         if (index === itemIndex) {
-          if (good.quantity > 9) {
+          if (good.quantity >= MAX_STACK) {
             return good
           }
+          setAlertName(item.displayName)  
           return {
             ...good,
             quantity: good.quantity + 1
@@ -59,7 +68,9 @@ export const Shop = props => {
         }
       })
       setAddedGoods(newAddedGoods)
+      
     }
+    
   }
 
   // useEffect(() => {
@@ -96,34 +107,64 @@ export const Shop = props => {
     };
   }, [isBasketShowed]);
 
+
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(addedGoods))
   }, [addedGoods]);
 
+
   const downQuantity = (mainId) => {
-    const itemIndex = addedGoods.findIndex(good => good.mainId === mainId)
-    addedGoods[itemIndex].quantity = addedGoods[itemIndex].quantity - 1
-    const newAddedGoods = addedGoods.filter(item => item.quantity > 0)
+    const newAddedGoods = addedGoods.map(item => {
+      if (item.mainId === mainId) {
+        const newQuanity = item.quantity - 1
+        return {
+          ...item,
+          quantity: newQuanity === 0 ? 1 : newQuanity
+        }
+      }
+      else {
+        return item
+      }
+    })
+    console.log(newAddedGoods)
+    // const itemIndex = addedGoods.findIndex(good => good.mainId === mainId)
+    // addedGoods[itemIndex].quantity = addedGoods[itemIndex].quantity - 1
+    // const newAddedGoods = addedGoods.filter(item => item.quantity > 0)
     setAddedGoods(newAddedGoods)
   }
   const upQuantity = (mainId) => {
-    const itemIndex = addedGoods.findIndex(good => good.mainId === mainId)
-    if (addedGoods[itemIndex].quantity > 9) {
-      return
-    }
-    addedGoods[itemIndex].quantity = addedGoods[itemIndex].quantity + 1
-    setAddedGoods([...addedGoods])
+    const newAddedGoods = addedGoods.map(item => {
+      if (item.mainId === mainId) {
+        const newQuanity = item.quantity + 1
+        if (newQuanity > MAX_STACK) {
+          return item
+        }
+        return {
+          ...item,
+          quantity: newQuanity
+        }
+      }
+      return item
+    })
+    setAddedGoods(newAddedGoods)
+    // const itemIndex = addedGoods.findIndex(good => good.mainId === mainId)
+    // if (addedGoods[itemIndex].quantity >= MAX_STACK) {
+    //   return
+    // }
+    // addedGoods[itemIndex].quantity = addedGoods[itemIndex].quantity + 1
+    // setAddedGoods([...addedGoods])
   }
-
   return (
     <main className='container content' >
       <h1 className='align center'>Shop</h1>
+      {alertName && <Alert alertName={alertName} closeAlert={closeAlert}></Alert>}
       <Cart addedGoods={addedGoods.length} onClick={() => cartBtnHandler(!isBasketShowed)}></Cart>
       {isBasketShowed && <BasketList
         addedGoods={addedGoods}
         removeFromBasket={removeFromBasket}
         downQuantity={downQuantity}
         upQuantity={upQuantity}
+        cartBtnHandler={cartBtnHandler}
       >
       </BasketList>}
       {/* {isBasketShowed

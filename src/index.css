@@ -123,7 +123,6 @@ span .badge {
   background-color: #0391d3;
 }
 
-.cart-quantity {}
 
 .hover-custom {
   transition: background .1s;
@@ -131,6 +130,135 @@ span .badge {
 
 .hover-custom:hover {
   background-color: #d5fcf8 !important;
+}
+
+
+
+.hover-plus-minus:hover {
+  background-color: #ccc;
+}
+
+.basket-item-img {
+  width: auto;
+  height: 45px;
+}
+
+@media (min-width: 576px) {
+  .basket-item-img {
+    height: 95px;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 3%;
+  z-index: 5;
+  cursor: pointer;
+}
+
+.close-btn>i {
+  transition: color .15s;
+  pointer-events: none;
+}
+
+.close-btn:hover>i {
+  color: red;
+}
+
+@keyframes show {
+  from {
+    bottom: 70%;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+.hover-remove-custom {
+  transition: color .15s;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .hover-remove-custom {
+    font-size: 2rem;
+  }
+}
+
+.hover-remove-custom:hover {
+  color: red;
+}
+
+.hover-inc-custom {
+  transition: background .15s;
+  cursor: pointer;
+  border: '1px solid #ccc';
+  font-size: 1rem;
+  margin-right: 3px;
+}
+
+@media (min-width: 768px) {
+  .hover-inc-custom {
+    font-size: 2rem;
+  }
+}
+
+.hover-inc-custom:hover {
+  background-color: green;
+}
+
+.hover-dec-custom {
+  border: '1px solid #ccc';
+  transition: background .15s;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .hover-dec-custom {
+    font-size: 2rem;
+  }
+}
+
+.hover-dec-custom:hover {
+  background-color: red;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.basket-item-name {
+  font-size: 0.8rem;
+}
+
+@media (min-width: 576px) {
+  .basket-item-name {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .basket-item-name {
+    font-size: 1.5rem;
+  }
 }
 
 .basket-modal {
@@ -141,16 +269,59 @@ span .badge {
   bottom: 0;
   z-index: 5;
   background: rgba(0, 0, 0, 0.8);
+  overflow: auto;
+  animation: show 300ms ease-in-out;
 }
 
-.basket-modal>div {
-  width: 80%;
-  margin: 0 auto;
-  background-color: #fff;
+.basket-wrapper {
+  padding: 0.5rem;
+  width: 95%;
   border-radius: 5px;
   background-color: #fff;
+  margin: 3rem auto 3rem auto;
 }
 
-.hover-plus-minus:hover {
-  background-color: #ccc;
+@media (min-width: 768px) {
+  .basket-wrapper {
+    width: 75%;
+  }
+}
+
+@media (min-width: 960px) {
+  .basket-wrapper {
+    width: 85%;
+  }
+}
+
+td>* {
+  vertical-align: middle;
+}
+
+#toast-container {
+  animation: trans 0.5s ease-in-out;
+}
+
+@media only screen and (max-width: 600px) {
+  #toast-container {
+    bottom: 6% !important;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  #toast-container {
+    top: 5% !important;
+    right: 10% !important;
+  }
+}
+
+@keyframes trans {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

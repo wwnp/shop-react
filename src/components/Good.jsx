@@ -9,6 +9,7 @@ export const Good = props => {
     // offerId,
     mainId,
     img_url,
+    img_back_url,
     addToCart
   } = props
   return (
@@ -29,7 +30,18 @@ export const Good = props => {
         <p>{displayType}</p>
       </div>
       <div className="card-action">
-        <button className='btn' data-id={mainId} onClick={(e) => addToCart({displayName,mainId,finalPrice})}>Купить</button>
+        <button
+          className='btn'
+          data-id={mainId}
+          onClick={(e) => addToCart({
+            displayName,
+            mainId,
+            finalPrice,
+            img_back_url
+          })}
+        >
+          Купить
+        </button>
         {finalPrice === regularPrice
           ? <span className='badge-custom green'>{regularPrice} p</span>
           :

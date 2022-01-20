@@ -14,6 +14,7 @@ export const List = props => {
           offerId={good.offerId}
           mainId={good.mainId}
           img_url={good.displayAssets[0].full_background}
+          img_back_url={good.displayAssets[0].background}
           addToCart={props.addToCart}
         >
         </Good>
