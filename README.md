@@ -58,9 +58,9 @@ Add notes about how to use the system.
   export const ShopContex = createContext()
   export const ContexProvider = (props) => {
     const value = { test: 'sex' }
-    return <ShopContex value={value}>
+    return <ShopContex.Provider value={value}>
       {props.children}
-    </ShopContex>
+    </ShopContex.Provider>
   }
 
   in App.js
