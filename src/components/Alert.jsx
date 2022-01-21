@@ -1,6 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
+import { ShopContex } from './../contex';
 export const Alert = props => {
-  const { alertName, closeAlert = Function.prototype } = props
+  const {
+    alertName,
+    closeAlert = Function.prototype
+  } = useContext(ShopContex);
 
   useEffect(() => {
     let hideAlertInterval = setTimeout(closeAlert, 1000);

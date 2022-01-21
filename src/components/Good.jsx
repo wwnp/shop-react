@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ShopContex } from '../contex';
 export const Good = props => {
   const {
     displayName,
@@ -6,12 +7,11 @@ export const Good = props => {
     buyAllowed,
     regularPrice,
     finalPrice,
-    // offerId,
     mainId,
     img_url,
     img_back_url,
-    addToCart
   } = props
+  const { addToCart } = useContext(ShopContex);
   return (
     <div className="card" >
       <div className="card-image">
@@ -33,7 +33,7 @@ export const Good = props => {
         <button
           className='btn'
           data-id={mainId}
-          onClick={(e) => addToCart({
+          onClick={() => addToCart({
             displayName,
             mainId,
             finalPrice,
