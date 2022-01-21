@@ -52,25 +52,26 @@ Add notes about how to use the system.
 
 
 ## Usage <a name = "Guide"></a>
+```
+  make contex.js
+  import { createContext } from "react";
+  export const ShopContex = createContext()
+  export const ContexProvider = (props) => {
+    const value = { test: 'sex' }
+    return <ShopContex value={value}>
+      {props.children}
+    </ShopContex>
+  }
 
-// make contex.js
-// import { createContext } from "react";
-// export const ShopContex = createContext()
-// export const ContexProvider = (props) => {
-//   const value = { test: 'sex' }
-//   return <ShopContex value={value}>
-//     {props.children}
-//   </ShopContex>
-// }
-
-//in App.js
-// import { ContexProvider } from "./contex";
-// export function App() {
-//   return (
-//     <ContexProvider>
-//     <Layout>
-//       <Shop></Shop>
-//     </Layout>
-//     </ContexProvider>
-//   );
-// }
+  in App.js
+  import { ContexProvider } from "./contex";
+  export function App() {
+    return (
+      <ContexProvider>
+      <Layout>
+        <Shop></Shop>
+      </Layout>
+      </ContexProvider>
+    );
+  }
+ ```
