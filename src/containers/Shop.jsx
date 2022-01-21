@@ -57,7 +57,7 @@ export const Shop = props => {
         // setLoading(false)
         // }, 800)
       })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // const closeAlert = () => {
@@ -103,7 +103,7 @@ export const Shop = props => {
     return () => {
       window.removeEventListener('click', modalRemover)
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isBasketShowed]);
 
 
