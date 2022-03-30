@@ -1,5 +1,4 @@
-import React from 'react'
-export const Notfound = props => {
+export const Notfound = () => {
   return (
     <main className='center-align'>
       <h1>Page not found</h1>

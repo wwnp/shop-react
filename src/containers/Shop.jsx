@@ -1,12 +1,10 @@
 
 import { Preloader } from '../components/Preloader';
 import { List } from '../components/List';
-// import { useShop } from './useShop';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { API_KEY, API_URL } from '../config';
 import { Cart } from './../components/Cart';
 import { BasketList } from '../components/BasketList';
-import M from "materialize-css/dist/js/materialize.min.js";
 import { Alert } from './../components/Alert';
 
 function addedGoodFromLS() {
@@ -18,9 +16,7 @@ export const Shop = props => {
   const [goods, setGoods] = useState([])
   const [loading, setLoading] = useState(true)
   const [addedGoods, setAddedGoods] = useState(addedGoodFromLS())
-  // const [addedGoods, setAddedGoods] = useState([])
   const [isBasketShowed, setIsBasketShowed] = useState(false)
-  // const modalRef = useRef(null);
   const [alertName, setAlertName] = useState('');
 
   useEffect(() => {
@@ -43,7 +39,6 @@ export const Shop = props => {
   }
 
   const addToCart = (item) => {
-    console.log(item)
     const itemIndex = addedGoods.findIndex(good => good.mainId === item.mainId)
     if (itemIndex < 0) {
       const newItem = {
@@ -58,7 +53,7 @@ export const Shop = props => {
           if (good.quantity >= MAX_STACK) {
             return good
           }
-          setAlertName(item.displayName)  
+          setAlertName(item.displayName)
           return {
             ...good,
             quantity: good.quantity + 1
@@ -68,25 +63,13 @@ export const Shop = props => {
         }
       })
       setAddedGoods(newAddedGoods)
-      
-    }
-    
-  }
 
-  // useEffect(() => {
-  //   let elem = document.querySelector('.modal');
-  //   const modalInstanse = M.Modal.init(elem, { inDuration: 350, outDuration: 250, preventScrolling: true });
-  //   // const modalInstanse = M.Modal.init(elem, { inDuration: 350, outDuration: 250, endingTop: '30%', startingTop: '100%', preventScrolling: true });
-  //   modalRef.current = modalInstanse
-  // }, [modalRef]);
+    }
+
+  }
 
   const cartBtnHandler = () => {
     setIsBasketShowed(!isBasketShowed)
-    // modalRef.current.open()
-    // return () => {
-    //   modalRef.current.destroy();
-    //   modalRef.current = null
-    // }
   }
 
   const removeFromBasket = (id) => {
@@ -126,10 +109,6 @@ export const Shop = props => {
         return item
       }
     })
-    console.log(newAddedGoods)
-    // const itemIndex = addedGoods.findIndex(good => good.mainId === mainId)
-    // addedGoods[itemIndex].quantity = addedGoods[itemIndex].quantity - 1
-    // const newAddedGoods = addedGoods.filter(item => item.quantity > 0)
     setAddedGoods(newAddedGoods)
   }
   const upQuantity = (mainId) => {
@@ -147,12 +126,6 @@ export const Shop = props => {
       return item
     })
     setAddedGoods(newAddedGoods)
-    // const itemIndex = addedGoods.findIndex(good => good.mainId === mainId)
-    // if (addedGoods[itemIndex].quantity >= MAX_STACK) {
-    //   return
-    // }
-    // addedGoods[itemIndex].quantity = addedGoods[itemIndex].quantity + 1
-    // setAddedGoods([...addedGoods])
   }
   return (
     <main className='container content' >
@@ -167,16 +140,12 @@ export const Shop = props => {
         cartBtnHandler={cartBtnHandler}
       >
       </BasketList>}
-      {/* {isBasketShowed
-        ? <BasketList addedGoods={addedGoods} removeFromBasket={removeFromBasket}></BasketList>
-        : null
-      } */}
 
       {goods.length === 0
         ? <h1>Let's search</h1>
         :
         loading
-          ? <Preloader></Preloader>
+          ? <Preloader color='red'></Preloader>
           : <List goods={goods} addToCart={addToCart}></List>
       }
     </main>

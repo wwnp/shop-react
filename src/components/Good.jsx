@@ -6,7 +6,6 @@ export const Good = props => {
     buyAllowed,
     regularPrice,
     finalPrice,
-    // offerId,
     mainId,
     img_url,
     img_back_url,

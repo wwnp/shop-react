@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Search } from '../components/Search'
 export const AccId = props => {
   const [accId, setAccId] = useState(null)

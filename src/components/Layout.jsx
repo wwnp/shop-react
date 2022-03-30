@@ -3,7 +3,7 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 import { Outlet } from 'react-router-dom';
 
-export const Layout = props => {
+export const Layout = () => {
   return (
     <div className="wrapper">
       <Header></Header>
