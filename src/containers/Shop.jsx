@@ -2,10 +2,14 @@
 import { Preloader } from '../components/Preloader';
 import { List } from '../components/List';
 import { useEffect, useState } from 'react';
-import { API_KEY, API_URL } from '../config';
+import { API_KEY, API_URL, POSTS_PER_PAGE } from '../config';
 import { Cart } from './../components/Cart';
 import { BasketList } from '../components/BasketList';
 import { Alert } from './../components/Alert';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Pagination, PaginationItem } from '@mui/material';
+
+const queryString = require('query-string');
 
 function addedGoodFromLS() {
   const addedGoods = localStorage.getItem('cart')
@@ -13,12 +17,21 @@ function addedGoodFromLS() {
 }
 const MAX_STACK = 9
 export const Shop = props => {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const parsed = queryString.parse(location.search);
+  const [page, setPage] = useState(+parsed.page || 1)
+  const [quantity, setQuantity] = useState(0)
+
+
   const [goods, setGoods] = useState([])
   const [loading, setLoading] = useState(true)
   const [addedGoods, setAddedGoods] = useState(addedGoodFromLS())
   const [isBasketShowed, setIsBasketShowed] = useState(false)
   const [alertName, setAlertName] = useState('');
 
+  const [outPosts, setOutPosts] = useState(goods)
   useEffect(() => {
     fetch(API_URL, {
       headers: {
@@ -28,11 +41,21 @@ export const Shop = props => {
       .then((response) => response.json())
       .then((json) => {
         setGoods(json.shop)
+        setQuantity(Object.keys(json.shop).length)
         setTimeout(() => {
           setLoading(false)
         }, 800)
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    navigate(`?page=${page}`)
+    const indexLast = page * POSTS_PER_PAGE
+    const indexFirst = indexLast - POSTS_PER_PAGE
+    setOutPosts(goods.slice(indexFirst, indexLast))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, goods])
 
   const closeAlert = () => {
     setAlertName('')
@@ -63,9 +86,7 @@ export const Shop = props => {
         }
       })
       setAddedGoods(newAddedGoods)
-
     }
-
   }
 
   const cartBtnHandler = () => {
@@ -130,6 +151,7 @@ export const Shop = props => {
   return (
     <main className='container content' >
       <h1 className='align center'>Shop</h1>
+
       {alertName && <Alert alertName={alertName} closeAlert={closeAlert}></Alert>}
       <Cart addedGoods={addedGoods.length} onClick={() => cartBtnHandler(!isBasketShowed)}></Cart>
       {isBasketShowed && <BasketList
@@ -146,8 +168,37 @@ export const Shop = props => {
         :
         loading
           ? <Preloader color='red'></Preloader>
-          : <List goods={goods} addToCart={addToCart}></List>
+          : <>
+            <List goods={outPosts} addToCart={addToCart}></List>
+
+          </>
       }
+
+      <Pagination
+        style={{
+          position: 'absolute',
+          bottom: '60px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          minWidth: '200px',
+          maxWidth: '600px'
+        }}
+        color={'secondary'}
+        count={Math.ceil(quantity / POSTS_PER_PAGE)}
+        page={page}
+        onChange={(_, num) => setPage(num)}
+        showFirstButton
+        showLastButton
+        sx={{ marginY: 3, marginX: "auto" }}
+        renderItem={(item) => (
+          <PaginationItem
+            component={NavLink}
+            to={`/?page=${item.page}`}
+            {...item}
+          />
+        )}
+      />
+
     </main>
   )
 }

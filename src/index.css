@@ -103,12 +103,12 @@ span .badge {
 .cart {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  left: 2rem;
   cursor: pointer;
   z-index: 5;
   padding: 1rem;
   transition: background .1s;
-  background-color: #ee6e73;
+  background-color: #212121;
   color: #fff;
 }
 
@@ -166,17 +166,7 @@ span .badge {
   color: red;
 }
 
-@keyframes show {
-  from {
-    bottom: 70%;
-    opacity: 0;
-  }
 
-  to {
-    bottom: 0;
-    opacity: 1;
-  }
-}
 
 .hover-remove-custom {
   transition: color .15s;
@@ -270,7 +260,19 @@ span .badge {
   z-index: 5;
   background: rgba(0, 0, 0, 0.8);
   overflow: auto;
-  animation: show 300ms ease-in-out;
+  animation: show 200ms ease-in-out;
+}
+
+@keyframes show {
+  from {
+    /* right: 70%; */
+    opacity: 0;
+  }
+
+  to {
+    /* right: 0; */
+    opacity: 1;
+  }
 }
 
 .basket-wrapper {
@@ -316,7 +318,7 @@ td>* {
 
 @keyframes trans {
   from {
-    transform: translateX(-100px);
+    transform: translateY(-100px);
     opacity: 0;
   }
 
@@ -324,4 +326,20 @@ td>* {
     transform: translateX(0);
     opacity: 1;
   }
+}
+
+.MuiPagination-root {
+  background-color: #212121;
+}
+
+.MuiPagination-ul {
+  justify-content: center;
+}
+
+.MuiPagination-ul li a {
+  color: #fff;
+}
+
+.MuiPagination-ul li div {
+  color: #fff;
 }
